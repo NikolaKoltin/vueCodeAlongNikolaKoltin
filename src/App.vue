@@ -1,91 +1,53 @@
 <template>
-  <h1>message: {{ message }}</h1>
-  <hr>
-  <h1>number: {{ number }}</h1>
-  <hr>
-  <h1>doubleNum(50): {{ doubleNum(50) }}</h1>
-  <hr>
-  <h1>number * 2 = {{ number * 2 }}</h1>
-  <hr>
-  <h1>{{ number > 150? 'number is greater than 150': 'number is less than 150' }}</h1>
-  <hr>
-  <h1 v-text="number"></h1>
-  <hr>
-  <h1>{{ harry }}</h1>
-  <h1>{{ harry.name }}</h1>
-  <hr>
-  <h1>{{ hogwartsWizards }}</h1>
-  <h1>{{ hogwartsWizards[0] }}</h1>
-  <hr />
-  <h1>{{ rawHtml }}</h1>
-  <h1 v-text="rawHtml"></h1>
-  <h1 v-html="rawHtml"></h1>
+  <h1>{{ message }}</h1>
+  <img v-bind:src="imageUrl" alt="" />
+  <br>
+  <img :src="imageUrl" alt="" />
+  <button @click="changeImg">Change image</button>
+<hr />
+<input type ="text" :value="defaultInputText" />
+<hr>
+<p :class="className">Harry Potter</p>
+
+<p :class="{ inactive: isInactive, center: isCenter }">Harry Potter</p>
+<p :class="['active', 'center']">Harry Potter</p>
 </template>
 
 <script setup>
-let message = 'Hello, Vue!'
-let number = 50
+import { ref } from 'vue'
+let message = 'Hello, v-bind!'
 
-function doubleNum(num){
-  return num * 2
+let imageUrl = ref('/public/img/banner_1.jpg')
+
+function changeImg(){
+  imageUrl.value = '/public/img/banner_2.jpg'
 }
 
-let harry = {
-  id: 1001,
-  name: 'Harry Potter',
-  house: 'Gryffindor',
-  age: 17,
-  wand: {
-    core: 'Phoenix feather',
-    wood: 'Holly'
-  }
-}
+let defaultInputText = 'Write something here...'
 
-const hogwartsWizards = [
-  {
-    id: 1001,
-    name: 'Harry Potter',
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Phoenix feather',
-      wood: 'Holly'
-    }
-  },
-  {
-    id: 1002,
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Fragon heartstring',
-      wood: 'Vine'
-    }
-  },
-  {
-    id: 1003,
-    name: 'Ron Weasley',
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Unicorn hair',
-      wood: 'Willow'
-    }
-  },
-  {
-    id: 1004,
-    name: 'Draco Malfoy',
-    house: 'Slytherin',
-    age: 17,
-    wand: {
-      core: 'Dragon heartstring',
-      wood: 'Hawthorn'
-    }
-  }
-]
+let className = 'active'
 
-let rawHtml = '<span style="color: red">This should be red</span>'
+let isInactive = ref(false)
+let isCenter = ref(true)
+
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+img {
+  max-width: 300px;
+}
+
+.active{
+  color: green;
+}
+
+.inactive {
+  color: red;
+  text-decoration: line-through;
+}
+
+.center {
+  text-align: center;
+}
 
 </style>
